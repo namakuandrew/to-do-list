@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To do list and task</title>
+    <!---style2--->
+    <link rel="stylesheet" href="style.css" />
+    <link rel="shortcut item" href="asset/bars-icon.svg" type="image/x-icon" />
+    <link
+      rel="stylesheet"
+      href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
+    />
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="container">
+        <h2>To-Do: Lists & Tasks</h2>
+      </div>
+      <div class="task-input">
+        <img src="assets/menu-left.svg" alt="menu-left.png" />
+        <input type="text" placeholder="Tambahkan list kamu" />
+      </div>
+      <div class="controls">
+        <div class="filters">
+          <span class="active" id="all">All</span>
+          <span id="pending">Pending</span>
+          <span id="completed">Completed</span>
+        </div>
+        <button class="clear-btn">Clear all</button>
+      </div>
+      <!---Listnya disini--->
+      <ul class="task-box">
+        <li class="task">
+          <label for="${id}">
+            <input
+              type="checkbox"
+              onclick="updateStatus(this)"
+              id="${id}"
+              ${completed}
+            />
+            <p class="${completed}">${todo.name}</p>
+          </label>
+          <div class="settings">
+            <i onclick="showMenu(this)" class="uil uil-ellipsis-h"></i>
+            <ul class="task-menu">
+              <li onclick='editTask(${id}, "${todo.name}")'>
+                <i class="uil uil-pen"></i> Edit
+              </li>
+              <li onclick="deleteTask(${id}, '${filter}')">
+                <i class="uil uil-trash"></i> Delete
+              </li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <!---connect to javascript--->
+    <script src="script.js"></script>
+  </body>
+</html>
