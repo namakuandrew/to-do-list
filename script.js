@@ -1,5 +1,5 @@
 //initialize variable
-const taskInput = document.querySelector(".task-input"),
+const taskInput = document.querySelector(".task-input input"),
   filters = document.querySelectorAll(".filters span"),
   clearAll = document.querySelector(".clear-btn"),
   taskBox = document.querySelector(".task-box");
@@ -55,7 +55,7 @@ function showtodo(filter) {
   // check if there any tasks/lists present
   let checkTask = taskBox.querySelectorAll(".task");
   if (!checkTask.length) {
-    // if no tasks/lists, remove active class from clearAll buton
+    // if no tasks/lists, remove active class from clearAll button
     clearAll.classList.remove("active");
   } else {
     // if tasks/lists present, add active class to clearAll button
@@ -72,3 +72,29 @@ function showtodo(filter) {
 
 // to show all the lists
 showtodo("all");
+
+/* this event listener is triggered when the clearAll element is clicked & 
+it clears all the task in the todos array and updates the local storage */
+clearAll.addEventListener("click", () => {
+  isEditTask = false;
+  todos.splice(0, todos.length);
+  localStorage.setItem("todo-list", JSON.stringify(todos));
+  showtodo();
+});
+
+// this event listener is triggered when a key is released in the taskinput element
+taskInput.addEventListener("keyup", (e) => {
+  let userTask = taskInput.value.trim;
+  if (e.key == "Enter" && userTask) {
+    if (!isEditTask) {
+      todos = !todos ? [] : todos;
+      let taskInfo = { name: userTask, status: "pending" };
+    }
+    todos.push(taskInfo);
+  } else {
+    isEditTask = false;
+    todos[editId].name = userTask;
+  }
+  taskInput.value = "";
+  localStorage.setItem("todo-list", JSON.stringify);
+});
