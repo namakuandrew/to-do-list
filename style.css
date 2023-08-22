@@ -80,8 +80,16 @@ body {
   padding: 7px 13px;
   border-radius: 4px;
   letter-spacing: 0.2px;
+  pointer-events: none;
   transition: transform 0.25s ease;
   background: linear-gradient(30deg, #3c87ff 0%, #2f42ff 100%);
+}
+
+.controls,
+li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .filters span {
@@ -144,4 +152,81 @@ body {
   padding-bottom: 0;
 }
 
-.task-box .task label;
+.task-box .task label {
+  display: flex;
+  align-items: flex-start;
+}
+
+.task label input {
+  margin-top: 7px;
+  accent-color: #3c87ff;
+}
+
+/* for javascript function ShowTodo(filter) */
+
+.task label p {
+  user-select: none;
+  margin-left: 12px;
+  word-wrap: break-word;
+}
+
+.task label p.checked {
+  text-decoration: line-through;
+}
+
+.task-box .settings {
+  position: relative;
+}
+
+.settings :where(i, li) {
+  cursor: pointer;
+}
+
+.settings .task-menu {
+  z-index: 10;
+  right: -5px;
+  bottom: -65px;
+  padding: 5px 0;
+  background: #303134;
+  position: absolute;
+  border-radius: 4px;
+  transform: scale(0);
+  transform-origin: top right;
+  box-shadow: 0 0 6px #00000026;
+  transition: transform 0.2s ease;
+}
+
+.task-box .task:last-child .task-menu {
+  bottom: 0;
+  transform-origin: bottom right;
+}
+
+.task-box .task:first-child .task-menu {
+  bottom: -65px;
+  transform-origin: top right;
+}
+
+.task-menu.show {
+  transform: scale(1);
+}
+
+.task-menu li {
+  height: 25px;
+  font-size: 16px;
+  margin-bottom: 2px;
+  padding: 17px 15px;
+  cursor: pointer;
+  justify-content: flex-start;
+}
+
+.task-menu li:last-child {
+  margin-bottom: 0;
+}
+
+.settings li:hover {
+  background: #3c87ff;
+}
+
+.settings li i {
+  padding-right: 8px;
+}

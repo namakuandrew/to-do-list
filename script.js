@@ -84,17 +84,28 @@ clearAll.addEventListener("click", () => {
 
 // this event listener is triggered when a key is released in the taskinput element
 taskInput.addEventListener("keyup", (e) => {
-  let userTask = taskInput.value.trim;
+  let userTask = taskInput.value.trim();
   if (e.key == "Enter" && userTask) {
     if (!isEditTask) {
       todos = !todos ? [] : todos;
       let taskInfo = { name: userTask, status: "pending" };
+      todos.push(taskInfo);
     }
-    todos.push(taskInfo);
   } else {
     isEditTask = false;
     todos[editId].name = userTask;
   }
   taskInput.value = "";
-  localStorage.setItem("todo-list", JSON.stringify);
+  localStorage.setItem("todo-list", JSON.stringify(todos));
+  showTodo(document.querySelector("span.active").id);
 });
+
+function showMenu(selectedTask) {
+  let menuDiv = selectedTask.parentElement.lastElementChild;
+  menuDiv.classList.add("show");
+  document.addEventListener("click", (e) => {
+    if (e.target.tagName != "I" || e.target != selectedTask) {
+      menuDiv.classList.remove("show");
+    }
+  });
+}
