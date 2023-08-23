@@ -90,14 +90,14 @@ taskInput.addEventListener("keyup", (e) => {
       todos = !todos ? [] : todos;
       let taskInfo = { name: userTask, status: "pending" };
       todos.push(taskInfo);
+    } else {
+      isEditTask = false;
+      todos[editId].name = userTask;
     }
-  } else {
-    isEditTask = false;
-    todos[editId].name = userTask;
+    taskInput.value = "";
+    localStorage.setItem("todo-list", JSON.stringify(todos));
+    showTodo(document.querySelector("span.active").id);
   }
-  taskInput.value = "";
-  localStorage.setItem("todo-list", JSON.stringify(todos));
-  showTodo(document.querySelector("span.active").id);
 });
 
 function showMenu(selectedTask) {
@@ -108,4 +108,37 @@ function showMenu(selectedTask) {
       menuDiv.classList.remove("show");
     }
   });
+}
+
+// this function updates the status of a selected task
+function updateStatus(selectedTask) {
+  let taskName = selectedTask.parentElement.lastElementChild;
+  //check if there are any tasks present
+  if (selectedTask.checked) {
+    taskName.classList.add("checked");
+    todos[selectedTask.id].status = "completed";
+  } else {
+    taskName.classList.remove("checked");
+    todos[selectedTask.id].status = "pending";
+  }
+  // update the localstorage with the updated "todos" array
+  localStorage.setting("todo-list", JSON.stringify(todos));
+}
+
+/* this function is used to edit a task
+it takes two parameter: taskid (the id of the task to be edited) and textname(the content of the task) */
+function editTask(taskid, textName) {
+  editId = taskid;
+  isEditTask = true;
+  taskInput.value = textName;
+  taskInput.focus();
+  taskInput.classList.add("active");
+}
+
+/* this function is used to delete a task it takes two parameters: deleted (the idof the task to be deleted) & filter (the current filter value) */
+function deleteTask(deletedId, filter) {
+  isEditTask = false;
+  todos.splice(deletedId, 1);
+  localStorage.setItem("todo-list", JSON.stringify(todos));
+  showtodo(filter);
 }
